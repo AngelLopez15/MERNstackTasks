@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export const Login = () => {
 
-  const onChange = () =>{
+  // State para iniciar sesion
+  const [usuario, setUsuario] = useState({
+    email:'',
+    password:''
+  })
+
+  // extrayendo los datos
+  const {email,password}=usuario
+
+
+  const onChange = (e) => ({
+    ...usuario,
+    [e.target.name]:e.target.value
+  })
+
+  // funcion para enviar los datos de iniciar sesion
+  const onSubmit = (e) =>{
+    e.preventDefault()
+
+    //  validar
+
+    // pasarlo al actions
 
   }
 
@@ -11,7 +33,9 @@ export const Login = () => {
 
       <div className="contenedor-form sombra-dark">
         <h1>Inicio</h1>
-        <form>
+        <form
+          onSubmit={onSubmit}
+        >
 
           <div className="campo-form">
             <label htmlFor="email">Email</label>
@@ -20,6 +44,7 @@ export const Login = () => {
               id="email"
               name="email"
               placeholder="Correo"
+              value={email}
               onChange={onChange}
             />
           </div>
@@ -31,6 +56,7 @@ export const Login = () => {
               id="password"
               name="password"
               placeholder="Contraseña"
+              value={password}
               onChange={onChange}
             />
           </div>
@@ -44,6 +70,9 @@ export const Login = () => {
           </div>
 
         </form>
+
+        <Link to={'/nueva-cuenta'} className="enlace-cuenta">Obtener cuenta</Link>
+
       </div>
     </div>
   )
