@@ -1,13 +1,17 @@
 import React from 'react'
 import { Sidebar } from '../layout/Sidebar'
+import { Barra } from '../layout/Barra'
 
 export const Proyectos = () => {
   return (
-    <div className="contenerdor-app">
+    <div className="contenedor-app">
       
       <Sidebar />
 
       <div className="seccion-principal">
+
+        <Barra />
+
         <main>
           <div className="contenedor-tareas">
             
