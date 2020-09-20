@@ -1,6 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import proyectoContext from '../../context/proyectos/proyectoContext'
 
 export const NuevoProyecto = () => {
+
+  // Obtener el state del formulario. Para eso debemos obtener importar el context
+  const proyectosContext = useContext(proyectoContext)
+  // extrayendo el formulario del context
+  const {formulario, mostrarFormulario}= proyectosContext
+
 
   // State para manejar el boton de agregar proyecto
   // el estado inicial va a ser un objeto por que vamos a utilizar una libreria
@@ -35,34 +42,51 @@ export const NuevoProyecto = () => {
     })
   }
 
+  // Mostrar Formulario
+  const showFormulario = () => {
+    mostrarFormulario()
+  }
+
   return (
     <>
       <button
         type="button"
         className="btn btn-block btn-primario"
+        onClick={showFormulario}
       >
         Nuevo Proyecto
       </button>
 
-      <form
-        className="formulario-nuevo-proyecto"
-        onSubmit={onSubmitProyecto}
-      >
-        <input 
-          type="text"
-          className="input-text"
-          placeholder="Nombre del proyecto"
-          name="nombre"
-          value={nombre}
-          onChange={onChangeProyecto}
-        />
+      {
+        formulario
+        ?
+          (
+            <form
+              className="formulario-nuevo-proyecto"
+              onSubmit={onSubmitProyecto}
+            >
+              <input 
+                type="text"
+                className="input-text"
+                placeholder="Nombre del proyecto"
+                name="nombre"
+                value={nombre}
+                onChange={onChangeProyecto}
+              />
 
-        <input 
-          type="submit"
-          className="btn btn-primario btn-block"
-          value="Agregar proyecto"
-        />
-      </form>
+              <input 
+                type="submit"
+                className="btn btn-primario btn-block"
+                value="Agregar proyecto"
+              />
+            </form>
+          )
+        :
+          (
+            null
+          )
+      }
+
     </>
   )
 }
