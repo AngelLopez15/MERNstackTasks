@@ -6,7 +6,7 @@ export const NuevoProyecto = () => {
   // Obtener el state del formulario. Para eso debemos obtener importar el context
   const proyectosContext = useContext(proyectoContext)
   // extrayendo el formulario del context
-  const {formulario, mostrarFormulario}= proyectosContext
+  const {formulario, errorformulario, mostrarFormulario, agregarProyecto, mostrarError}= proyectosContext
 
 
   // State para manejar el boton de agregar proyecto
@@ -17,22 +17,27 @@ export const NuevoProyecto = () => {
     nombre:''
   })
 
+  // extrayendo el nombre del proyecto con desestructuracion de objetos
+  const {nombre}=proyecto
+
   // Funcion para enviar el formulario
   const onSubmitProyecto = (e)=>{
     e.preventDefault()
 
     // validando el proyecto
+    if(nombre === '') {
+      mostrarError()
+      return
+    }
 
     // agregarlo al state
+    agregarProyecto(proyecto)
 
     // reiniciar el form
-
+    setProyecto({
+      nombre:''
+    })
   }
-
-
-  // extrayendo el nombre del proyecto con desestructuracion de objetos
-  const {nombre}=proyecto
-
 
   // lee lo que escriben en el input
   const onChangeProyecto = (e) =>{
@@ -86,7 +91,9 @@ export const NuevoProyecto = () => {
             null
           )
       }
-
+      {
+        errorformulario ? <p className="mensaje error">El nombre del proyecto es obligatorio </p> :null
+      }
     </>
   )
 }
